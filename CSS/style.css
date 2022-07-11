@@ -1,0 +1,94 @@
+
+:root{
+    --visible: hidden;
+    
+}
+
+body{
+    margin:0;
+    padding:0;
+    /*background-color:grey;*/
+    /*background-image: url("../IMG/fonds/3.jpg");*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
+      
+}
+
+
+#img_titre{
+    border-radius: 50%;
+}
+
+#tableau-detail-datatable{
+    background-color:#eee;
+}
+
+.dataTables_info, .dataTables_length, .dataTables_filter {
+    
+    /*color: burlywood;*/
+    color:wheat;
+    
+}
+
+#menu_vertical{
+    /*background-image: url("../IMG/menu_vertical.jpg");*/
+    /*background-color:blanchedalmond; */
+    background-color:darksalmon;  
+
+}
+
+.ajouterPlanning, .ajouterControle, .ajouterMateriel, .ajouterPerio, .ajouter, .ajouterSecteur, .ajouterUnUtilisateur, .ajouterModele {
+    background-color:#0275d8;
+    visibility: var(--visible);
+    
+}
+
+#TableauMateriel tbody td {
+    padding:10px;  
+}
+
+#afficher_id_modele{
+    height:5px;
+}
+
+.indicRetards.pointer{
+    cursor: pointer;
+}
+
+.indic30Jours.pointer{
+    cursor: pointer;
+}
+
+
+#container_ajout_materiel, #Afficher_un_materiel{
+    background-color: rgb(128, 128, 128, 0.25);
+}
+
+.ListeMateriel, .listeUsers, .listeFamille, .listeModele,
+.listeSecteur, .listePeriodicite, .listePlanning, .listeControles, .listeRetard,
+.liste30Jours, .listePlanifies, .listeConnexions{
+    background-color:rgb(178, 34, 34, 0.25);
+}
+
+toto{
+    background-color: rgba(255, 208, 0, 0.5);
+}
+
+.span1{
+    /*color:brown;*/
+    font-size: x-large;
+}
+
+.indexBody, .modifBody, .connexionBody, .oublieBody{
+    padding-bottom: 300px;    
+}
+
+.clignote.bg-danger {
+    color:green;
+    animation: clignote 2s linear infinite;
+}
+@keyframes clignote {  
+    50% { opacity: 0; }
+}
+

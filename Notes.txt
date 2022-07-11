@@ -1,0 +1,211 @@
+a faire:
+- liste matériels: ne se rafraichie pas après une suppression -> ok
+- dans page "afficher un matériel": 
+      - trouver solution pour que les contrôles du matériel sélectionné s'affichent -> OK
+      - ajouter le code barres du matériel affiché -> OK
+
+- Voir la déconnexion quand on fait avant arrière
+- terminer les pages identification, validation inscription -> OK
+- Modifier la requete pour afficher les plannings des modeles dans modals modeles à la place de toutes les periodicites -> OK
+- page modèles: ajouter un bouton dans colonne action pour afficher la table planning -> OK
+- faire requete d'insertion des dates suivantes dans controles matériels -> OK
+- dans les listes retards, 30jours => ajouter action "faire le contrôle"
+- bug dans contrôle ajout contrôle, pas de suppression du crtl en retard -> OK
+- mettre en uppercase les repères partout -> OK (fait dans requetes insert et update)
+- voir foreign key de matériel à la suppression -> OK
+
+
+
+
+
+
+//////////////////  pour mémoire  ////////////////////////////
+
+echo '<!--<div class="modal fade" id="ajoutUser">'; 
+  echo '<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+      <!--<img src="../IMG/adduser.png"/>-->  
+        <h4 class="modal-title mx-auto">Ajouter un utilisateur</h4>
+        <button type="button" class="btn-close" data-dismiss="modal" id="closeUser"></i></button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body px-4">
+      <form method="post" action="" id="ajouterUser_form_data">
+
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputUsername"  name="ajout_nom" value="" >
+        <label for="floatingInputUsername">Nom</label>
+      </div>
+      
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputUserfirstname"  name="ajout_prenom" value="" >
+        <label for="floatingInputUserfirstname">Prénom</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInputemail"  name="ajout_login" value="" >
+        <label for="floatingInputEmail">Adresse mail</label>
+      </div>
+
+      
+
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingInputpassword"  name="ajout_mdp" value="" >
+        <label for="floatingPassword">Mot de passe</label>
+        
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingInputconfirmpassword"  name="ajout_confirm_mdp" value="">
+        <label for="floatingInputconfirmpassword">confirmer le mot de passe</label>
+        
+      </div>
+
+      <br>
+
+      <div class="d-grid mb-2">
+      <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase"  type="submit" id="ajout_valider" name="ajout_valider">Valider</button>
+      </div>
+      
+      
+       
+      <hr class="my-4">
+
+    </form>
+      
+      </div>      
+    </div>
+  </div>
+</div>-->';
+//if(isset($_POST['validerUser']) && (!empty($_POST['ajout_login'])) && (bon_mdp($_POST['ajout_mdp']))  && verif_mdp(($_POST['ajout_mdp']),($_POST['ajout_confirm_mdp'])))      /* && (bon_mdp($_POST['mdp']) && verif_mdp(($_POST['mdp']),($_POST['confirm_mdp'])))*/
+  //{
+    
+    //new Inserer($_POST['ajout_nom'], $_POST['ajout_prenom'], $_POST['ajout_login'], $_POST['ajout_mdp']); 
+    
+ //};
+
+ 
+
+ Quand tu cliques sur le bouton submit d'un formulaire, il envoie une requête HTTP vers la cible de l'attribut action du formulaire
+  elle peut contenir la page courante ou une autre page. Il faut bien comprendre que l'envoi d'une requête HTTP par PHP recharge
+   forcément le navigateur car ce traitement ce fait coté serveur du coup requête->réponse.
+
+Bien entendu tu peux aussi gérer ce traitement avec du JavaScript et de l'AJAX.
+
+En gros tu captures l'évènement de click ou de submit du formulaire avec du JavaScript, tu n'oublies pas l'instruction event.preventDefault();
+ qui va court-circuiter l’événement en gros l'événement ne va pas se propager et du coup le bouton ne va plus recharger la page.
+
+Ensuite tu n'as qu'a gérer ta requête en AJAX (en gros AJAX permet en Javascript d'éffectuer une requête et un traitement PHP de manière
+ asynchrone c a d invisible pour l'utilisateur).
+
+Si ton traitement AJAX est un succès tu caches le formulaire.
+
+Edit : Voici toutes les clés pour faire ce que tu veux mais il vaut mieux commencé doucement plutôt que commencer avec des choses
+ trop complexes.
+  En gros si tu ne saisis par parfaitement le fonctionnement des passages de paramètres en $_GET ou $_POST ni le fonctionnement
+   basique du JavaScript tu n'es peut être pas encore prêt pour faire des opérations plus complexes. 
+
+
+
+/**** pour inserer des options dans un <select>
+<?php
+  while ($row = $result->fetch(PDO::FETCH_ASSOC))
+            { ?>
+            <option value="<?php echo $row['etudiant_nom'];?>"><?php echo $row['etudiant_nom'];?></option>
+     
+            <?php } ?>
+
+
+
+// Modal ajout matériel
+function ajoutMateriel(){
+echo'
+<div class="modal fade" id="ajoutMateriel" tabindex="-1"  >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+          <img src="../IMG/materiel/materiel.png"/> 
+            <h4 class="modal-title mx-auto text-center">Ajouter un matériel</h4>
+            <button type="button" class="btn-close" data-dismiss="modal" id="closeMateriel"></i></button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body px-4">
+          <form class="form-horizontal" method="post" name="materiel_form_data" id="materiel_form_data" onsubmit="return ajout_materiel()">
+    
+    
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="ajout_materiel_rep"   name="ajout_materiel_rep" required >
+            <label for="ajout_materiel_rep">Repère</label>
+          </div>
+          
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="ajout_materiel_designation"   name="ajout_materiel_designation" required >
+            <label for="ajout_materiel_designation">Désignation</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="ajout_materiel_reference"   name="ajout_materiel_reference">
+            <label for="ajout_materiel_reference">Référence</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="ajout_materiel_mes"   name="ajout_materiel_mes" required >
+            <label for="ajout_materiel_mes">Date de mise en service</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="ajout_materiel_commentaire"   name="ajout_materiel_commentaire">
+            <label for="ajout_materiel_commentaire">Commentaire</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="ajout_materiel_photo"   name="ajout_materiel_photo">
+            <label for="ajout_materiel_photo">Photo</label>
+          </div>
+
+          <div class="form-floating mb-3" >
+            <select class="form-select" id="ajout_id_secteur">
+              <option selected></option>
+            </select>
+            <label class="form-label select-label">Sélectionner un secteur</label>            
+          </div>
+          
+    
+          <div class="form-floating mb-3" >
+            <select class="form-select" id="ajout_id_famille"  required>
+              <option selected></option>
+            </select>
+            <label class="form-label select-label">Sélectionner une famille</label>            
+          </div>
+
+          <div class="form-floating mb-3" >
+            <select class="form-select " id="ajout_id_modele"  required>
+              <option selected></option>
+            </select>
+            <label class="form-label select-label">Sélectionner un modèle</label>            
+          </div>
+
+          <br>
+    
+          <div class="form-group p-3" >      
+          <input type="submit" name="ajout_materiel_valider"  id="ajout_materiel_valider" class="btn btn-outline-primary btn-block form-control" value="VALIDER">
+          </div>
+    
+        </form>
+                   
+          <hr class="my-4">
+                  
+          </div>      
+        </div>
+      </div>
+    </div>';
+}
